@@ -1,0 +1,66 @@
+<!--weather widget-->
+<a target="_blank" href="https://hotelmix.com.ua/weather/lviv-4436"><img src="https://w.bookcdn.com/weather/picture/13_4436_1_29_8dafeb_158_fff5d9_423e42_3f4042_3_fff5d9_333333_0_6.png?scode=124&domid=966&anc_id=27212" alt="booked.net" /></a>
+
+<!--center content-->
+<div class="main">
+	<h1 id="h1"></h1>
+	<h2 id="h2" ng-repeat='new in todo.loginName'>Good evening, {{new.name}}.</h2>
+	<h3 id="h3">What is your main focus for today?</h3>
+	<hr id="hr">
+</div>
+<h4 id="h4">"The difference between ordinary and extraordinary is that little extra."</h4>
+
+<!--Login modal-->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<form class="text-center border border-light p-5">
+					<p class="h4 mb-4">Enter your name</p>
+					<input type="text" id="loginUser" class="form-control mb-4" placeholder="Name" ng-model='todo.login'>
+					<button id="submit" class="btn btn-info btn-block my-4" type="button" ng-click="todo.submit()">Sign in</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Edit modal-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="editModal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Change this todo:</label>
+					<input type="text" ng-model='todo.editTodoText' class="form-control">
+				</div>
+				<input type="button" value="Change" class="btn btn-success" ng-click='todo.saveTodo()' id="saveHuman" data-toggle="modal" data-target="#editModal">
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--todo list content start-->
+<ul class="list-group bg-dark" id="table">
+	<li class="text-white list-group-item list-group-item bg-dark"><span ng-bind="todo.todos.length"></span> TO DO <img class="xIcon" src="images/dots.png" alt=""></li>
+	<li id="noTodos" class="emptyTodo" ng-hide="todo.todos.length">No todos yet <br>
+		Add a todo to get started</li>
+	<li ng-repeat='new in todo.todos' class="checked">
+		<div id="buttonsObg">
+			<div>
+				<input class="check" id="checkbox" ng-model='new.done' type="checkbox">
+				<label for="checkbox" class="strikethrough">{{new.todo}}</label>
+			</div>
+			<div>
+				<button type="button" id="btnEdit" ng-click='todo.btnEdit(new)' class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#editModal">Edit</button>
+				<button type="button" id="btnRemove" ng-click='todo.btnRemove($index)' class="btn btn-secondary btn-sm">Remove</button>
+			</div>
+		</div>
+		<span id="progress" ng-style="(new.done == true) ? {'color' : 'green'} : {'color' : 'yellow'}">
+			<span id="dateToday">{{todo.today}}</span>{{todo.changeStatus(new.done)}}</span>
+	</li>
+	<li><input type="text" ng-model='todo.newTodo' class="input-dark text-light" placeholder="New todo" id="inpText"><button type="button" id="btnAdd" ng-click='todo.btnAdd()' class="btn btn-secondary btn-sm">Add</button></li>
+</ul>
+<img src="images/triangle.png" class="triangle" alt="">
+<span class="todoOpen">Todo</span>
+<!--todo list content end-->
